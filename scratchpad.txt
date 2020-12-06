@@ -1,0 +1,51 @@
+---------------class diagramming for the memory game----------------------
+
+ENTITIES
+
+    - the program
+    - the game
+    - the board
+    - the board cards
+    - the player
+    - the computer
+
+
+PROPERTIES AND METHODS
+
+    - the program
+        - runs a game when the user clicks a button to start
+        - ends the game, displays the result
+        - asks if you want to play again or exit
+
+    - the game
+        - sets up the playing board with unturned cards and images underneath
+        - reacts to moves made by the player and the computer       
+        - runs the logic to keep the scores and declare a winner
+        - has a player, a computer player, a board
+        
+    - the board
+        - has x number of board cards
+        - randomly places 10 cards with 5 matching pairs 
+        - keeps track of which cards are turned over or not
+        - lets the game know if a match is made
+
+    - the board cards
+        - a boolean => turned over or not
+        - an image with a corresponding pair
+
+    - the player
+        - makes a move based on a user's input
+        - has a score
+        - is the winner or not
+
+    - the computer
+        - makes a move based on random selection
+        - has a score
+        - is the winner or not
+
+
+RELATIONSHIPS
+
+    - the program uses a game
+    - a game has a board, a player and computer
+    - a board has 10 board cards
