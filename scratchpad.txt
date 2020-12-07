@@ -1,3 +1,7 @@
+--------resources------------
+
+https://www.w3docs.com/snippets/javascript/how-to-randomize-shuffle-a-javascript-array.html
+
 ---------------class diagramming for the memory game----------------------
 
 ENTITIES
