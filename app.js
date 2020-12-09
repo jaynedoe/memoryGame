@@ -1,4 +1,4 @@
-//set up the board
+//GLOBAL VARIABLES
 let noOfClicks = 0;
 let match = false;
 let firstCard;
@@ -36,41 +36,65 @@ function shuffleArray(array) {
   return array;
 }
 
-let newArray = shuffleArray(boardArray);
+function setCards() {
+  let newArray = shuffleArray(boardArray);
 
-console.log(newArray);
-
-function setCards(newArray) {
   for (let i = 0; i < newArray.length; i++) {
     document
       .getElementById("square" + i)
       .addEventListener("click", function () {
+        //set sound
+        let sound = new Audio("sounds/snare.mp3");
+        sound.play();
+        //increment no of clicks
+        noOfClicks++;
+        //if class = not-clicked, change to clicked and vice versa
+        console.log(this);
 
-        //if already 'clicked', toggle to blank, if not 'clicked', toggle to picture
+        let clickTest = this.classList[1];
 
-        document.getElementById("square" + i).setAttribute("src", newArray[i]);
-        if(document.getElementById()){
+        if (clickTest == "not-clicked") {
+          this.classList.remove("not-clicked");
+          this.classList.add("clicked");
+          document
+            .getElementById("square" + i)
+            .setAttribute("src", newArray[i]);
+        } else if (clickTest == "clicked") {
+          this.classList.remove("clicked");
+          this.classList.add("not-clicked");
+          document
+            .getElementById("square" + i)
+            .setAttribute("src", "images/blankSquare.png");
+        }
 
-            //if the element has a class tag of 'not-clicked', toggle to 'clicked', and if clicked, 
-
+        if (noOfClicks == 1) {
+          firstCard = this.id;
+          console.log(firstCard, noOfClicks);
+        } else if (noOfClicks == 2) {
+          secondCard = this.id;
+          console.log(secondCard, noOfClicks);
+        } else {
+          noOfClicks = 0;
         }
       });
   }
 }
 
 function playGame() {
+  
+  setCards();
+
   if (noOfClicks == 2) {
-    // noOfClicks = 0;
     if (firstCard == secondCard) {
       document.getElementById("match").innerHTML = "match!";
+      match = true;
     } else {
       document.getElementById("match").innerHTML = "no match, try again.";
+      match = true;
     }
+  } else {
+    match = true;
   }
 }
 
-setCards(newArray);
-
 playGame();
-
-//game logic
