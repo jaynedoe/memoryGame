@@ -1,59 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <!-- User agent style sheet -->
+    <link rel="stylesheet" href="styles.css" />
 
     <title>Memory Game</title>
   </head>
   <body>
-      <div class="container">
-          <div>
-            <h1 class="display-1 mt-5 mb-4">Memory Game</h1>
-            <p class="lead">Choose a square, find the match!</p>
+    <div class="container">
+      <div>
+        <h1 class="display-1 mt-5 mb-4">Memory Game</h1>
+        <p class="lead">Press spacebar to start!</p>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row mb-4">
+        <div class="col-lg-6">
+          <img
+            id="0"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="1"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="2"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+        </div>
+        <div class="col-lg-6">
+          <p class="lead">Your Progress</p>
+        <hr>
+        <h3 id="results"></h3>
+        <p id="score"></p>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-lg-6">
+          <img
+            id="3"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="4"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="5"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+        </div>
+        <div class="col-lg-6">
           </div>
       </div>
-
-      <div class="container mt-5">
-        <div class="row mb-4">
-            <div class="col-lg-6">
-                <img id="square0" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square1" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square2" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">                
-            </div>
-            <div class="col-lg-6">
-                <p id="match">What's the current score?</p>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-lg-6">
-                <img id="square3" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square4" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square5" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-lg-6">
-                <img id="square6" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square7" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square8" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <img id="square9" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square10" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-                <img id="square11" class="picture not-clicked" src="images/blankSquare.png" alt="blankSquare">
-            </div>
+      <div class="row mb-4">
+        <div class="col-lg-6">
+          <img
+            id="6"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="7"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="8"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
         </div>
       </div>
-    <script type="text/javascript" src="app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+      <div class="row">
+        <div class="col-lg-6">
+          <img
+            id="9"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="10"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+          <img
+            id="11"
+            class="picture"
+            src="images/blankSquare.png"
+            alt="blankSquare"
+          />
+        </div>
+        <div class="col-lg-6">
+          
+            <h2 id="result-heading"></h2>
+          
+        </div>
+      </div>
+    </div>
     
+      <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="game-logic.js"></script>
+    <script type="text/javascript" src="view-logic.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
   </body>
 </html>

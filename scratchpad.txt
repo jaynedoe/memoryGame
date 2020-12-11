@@ -2,6 +2,8 @@
 
 https://www.w3docs.com/snippets/javascript/how-to-randomize-shuffle-a-javascript-array.html
 
+https://isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing
+
 ---------------class diagramming for the memory game----------------------
 
 ENTITIES
@@ -11,8 +13,7 @@ ENTITIES
     - the board
     - the board cards
     - the player
-    - the computer
-
+  
 
 PROPERTIES AND METHODS
 
@@ -38,18 +39,8 @@ PROPERTIES AND METHODS
         - an image with a corresponding pair
 
     - the player
-        - makes a move based on a user's input
+        - has two cards
         - has a score
-        - is the winner or not
-
-    - the computer
-        - makes a move based on random selection
-        - has a score
-        - is the winner or not
+      
 
 
-RELATIONSHIPS
-
-    - the program uses a game
-    - a game has a board, a player and computer
-    - a board has 10 board cards
