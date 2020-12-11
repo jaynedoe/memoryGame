@@ -1,6 +1,6 @@
-
-
 //shuffle the cards, return random array
+let firstCardIdChosen;
+let secondCardIdChosen;
 
 function shuffleArray(array) {
   let id = array.length;
@@ -17,11 +17,31 @@ function shuffleArray(array) {
   return array;
 }
 
+function processFirstCard(imageElement) {
+  firstCardIdChosen = imageElement.id;
+  let firstCard = findCard(firstCardIdChosen);
+  userGuesses.push(firstCard);
+}
+
+function processSecondCard(imageElement) {
+  secondCardIdChosen = imageElement.id;
+  let secondCard = findCard(secondCardIdChosen);
+  userGuesses.push(secondCard);
+
+  let match = checkMatch();
+  displayMatchResult(
+    match,
+    firstCardIdChosen,
+    secondCardIdChosen
+  );
+  userGuesses = [];
+}
+
 function findCard(spotNumber) {
   let found = false;
   let card = {};
 
-  newArray.forEach(function (value) {
+  newPlayingBoard.forEach(function (value) {
     if (spotNumber == value.boardSpot) {
       card = value;
       found = true;
@@ -35,23 +55,26 @@ function findCard(spotNumber) {
   }
 }
 
-function checkMatch() {
+let checkMatch = () => {
   if (userGuesses[0].name == userGuesses[1].name) {
+    noOfMatches++;
+    score++;
     return true;
   } else {
+    score--;
     return false;
   }
-}
+};
 
 function checkForWin() {
-  if (score == 6) {
+  if (noOfMatches === 6) {
+    clearInterval(setTimer);
+    let timeToComplete = time;
     $("#result-heading").text(
-      "You found all the matches!  Press spacebar to start again."
+      `You found all the matches in ${timeToComplete} seconds!  Press spacebar to start again.`
     );
-
+    $('#timer').text('');
+    reMatch = true;
     started = false;
-    score = 0;
   }
 }
-
-

@@ -1,32 +1,21 @@
 // this is where your jquery javascript goes that controls how the viewer interacts with the screen - event listeners and handlers
 
 //GLOBAL VARIABLES
-let match = false;
-let firstCard = 0;
-let secondCard = 0;
-let firstPictureNumberChosen;
-let secondPictureNumberChosen;
-let started = false;
-let userGuesses = [];
-let newArray = [];
-let clickCount = 0;
-let score = 0;
-
-let boardArray = [
+const BOARDARRAY = [
   {
     name: "owl",
     boardSpot: -1,
-    src: "images/owl.png",    
+    src: "images/owl.png",
   },
   {
     name: "owl",
     boardSpot: -1,
-    src: "images/owl.png",    
+    src: "images/owl.png",
   },
   {
     name: "whale",
     boardSpot: -1,
-    src: "images/whale.png",    
+    src: "images/whale.png",
   },
   {
     name: "whale",
@@ -36,7 +25,7 @@ let boardArray = [
   {
     name: "bird",
     boardSpot: -1,
-    src: "images/bird.png",    
+    src: "images/bird.png",
   },
   {
     name: "bird",
@@ -46,7 +35,7 @@ let boardArray = [
   {
     name: "earth",
     boardSpot: -1,
-    src: "images/earth.png",    
+    src: "images/earth.png",
   },
   {
     name: "earth",
@@ -75,50 +64,67 @@ let boardArray = [
   },
 ];
 
-//when spacebar is pressed, start game
+let started = false;
+
+let newPlayingBoard = [];
+let userGuesses = [];
+let clickCount = -1;
+
+let noOfMatches = 0;
+let score = 0;
+let reMatch = false;
+let time = 0;
+let timeStop = false;
+
+//when spacebar is pressed, start first game or reset values then start new game
 
 $(document).on("keydown", function (e) {
   if (!started && e.keyCode == 32) {
-    if (match == true) {
-      $("#results").text("");
-      $("#score").text("");
-      $("#result-heading").text("");
+    if (reMatch) {
+      resetBoard();
     }
-
     setCards();
     started = true;
+   
   }
 });
 
-//when a user clicks on a square, run game logic to determine outcome
+function setTimer(){
+  setInterval(function(){
+    $('#timer').text(time);
+    time++;
+  }, 1000) 
+}
+
+//remove results text from previous game, reset image squares back to blank, remove prior card array
+//reset overall score and ongoing correct matches
+
+function resetBoard() {
+  $("#results").text("");
+  $("#score").text("");
+  $("#result-heading").text("");
+  $("img").attr("src", "images/blankSquare.png");
+  noOfMatches = 0;
+  score = 0;
+  newPlayingBoard = [];
+  time = 0;
+}
+
+//when a user clicks on a square, check conditions and run game logic from game-logic.js to determine outcome
 
 $(".picture").on("click", function () {
   if (started == true) {
-    //if click count is 0, add card to first choice
+    if(clickCount == -1){
+      setTimer();
+      clickCount = 0;
+    }
+    
     if (clickCount == 0) {
-      firstPictureNumberChosen = this.id;
-
-      firstCard = findCard(firstPictureNumberChosen);
-
-      $("#first-card").text(`First card found: ${firstCard.name}`);
-      userGuesses.push(firstCard);
+      processFirstCard(this);
     }
 
-    //if click count is 1 and game has started, add second card to user guess array
-
     if (clickCount == 1) {
-      secondPictureNumberChosen = this.id;
-
-      secondCard = findCard(secondPictureNumberChosen);
-      $("#second-card").text(`Second card found: ${secondCard.name}`);
-      userGuesses.push(secondCard);
-      match = checkMatch();
-      displayMatchResult(
-        match,
-        firstPictureNumberChosen,
-        secondPictureNumberChosen
-      );
-      userGuesses = [];
+      processSecondCard(this);
     }
 
     checkForWin();
@@ -126,14 +132,13 @@ $(".picture").on("click", function () {
     if (clickCount == 0) {
       clickCount = 1;
     } else if (clickCount == 1) {
-      clickCount = 0;
-    }
+      clickCount = 0; 
+    } 
   }
 });
 
 function displayMatchResult(match, first, second) {
   if (match) {
-    score++;
     $("#results").text("Match!");
     $("#score").text(`Your current score is: ${score}`);
   } else if (!match) {
@@ -143,7 +148,6 @@ function displayMatchResult(match, first, second) {
       flipCardsBack(first, second);
     }, 500);
   }
-
 }
 
 function flipCardsBack(first, second) {
@@ -155,22 +159,15 @@ function flipCardsBack(first, second) {
 }
 
 function setCards() {
-  $("img").attr("src", "images/blankSquare.png");
+  newPlayingBoard = shuffleArray(BOARDARRAY);
 
-  newArray = [];
-  newArray = shuffleArray(boardArray);
-
-  //assign each picture a static, particular spot on the board, save as an object property
-
-  for (let j = 0; j < newArray.length; j++) {
-    newArray[j].boardSpot = j;
+  for (let j = 0; j < newPlayingBoard.length; j++) {
+    newPlayingBoard[j].boardSpot = j;
   }
 
-  //assign an event handler to each square on the board - what to dynamically change when a square is clicked
-
-  for (let i = 0; i < newArray.length; i++) {
+  for (let i = 0; i < newPlayingBoard.length; i++) {
     $("#" + i).on("click", function () {
-      $("#" + i).attr("src", newArray[i].src);
+      $("#" + i).attr("src", newPlayingBoard[i].src);
     });
   }
 }
