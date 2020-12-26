@@ -1,4 +1,5 @@
 //shuffle the cards, return random array
+
 let firstCardIdChosen;
 let secondCardIdChosen;
 
@@ -68,10 +69,10 @@ let checkMatch = () => {
 
 function checkForWin() {
   if (noOfMatches === 6) {
-    clearInterval(setTimer);
-    let timeToComplete = time;
+    clearInterval(timer);
+    $('#start').text('Try Again!');
     $("#result-heading").text(
-      `You found all the matches in ${timeToComplete} seconds!  Press spacebar to start again.`
+      `You found all the matches in ${time} seconds!`
     );
     $('#timer').text('');
     reMatch = true;

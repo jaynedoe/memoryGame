@@ -74,40 +74,47 @@ let noOfMatches = 0;
 let score = 0;
 let reMatch = false;
 let time = 0;
-let timeStop = false;
 
-//when spacebar is pressed, start first game or reset values then start new game
+let timerOn = false;
 
-$(document).on("keydown", function (e) {
-  if (!started && e.keyCode == 32) {
+
+//when start button is clicked, start first game or reset values then start new game
+
+$('#start').on("click", function () {
+  if (!started) {
     if (reMatch) {
       resetBoard();
     }
     setCards();
-    started = true;
-   
+    started = true;   
   }
 });
 
-function setTimer(){
-  setInterval(function(){
-    $('#timer').text(time);
-    time++;
-  }, 1000) 
+function printTime(){
+  $('#timer').text(time);
 }
 
-//remove results text from previous game, reset image squares back to blank, remove prior card array
-//reset overall score and ongoing correct matches
+function count(){
+  if(timerOn){
+    time++;
+    printTime();
+  }
+}
 
-function resetBoard() {
-  $("#results").text("");
-  $("#score").text("");
-  $("#result-heading").text("");
-  $("img").attr("src", "images/blankSquare.png");
-  noOfMatches = 0;
-  score = 0;
-  newPlayingBoard = [];
-  time = 0;
+let timer = setInterval(count, 1000);
+
+function setCards() {
+  newPlayingBoard = shuffleArray(BOARDARRAY);
+
+  for (let j = 0; j < newPlayingBoard.length; j++) {
+    newPlayingBoard[j].boardSpot = j;
+  }
+
+  for (let i = 0; i < newPlayingBoard.length; i++) {
+    $("#" + i).on("click", function () {
+      $("#" + i).attr("src", newPlayingBoard[i].src);
+    });
+  }
 }
 
 //when a user clicks on a square, check conditions and run game logic from game-logic.js to determine outcome
@@ -115,11 +122,12 @@ function resetBoard() {
 $(".picture").on("click", function () {
   if (started == true) {
     if(clickCount == -1){
-      setTimer();
+      timerOn = true;
       clickCount = 0;
     }
     
     if (clickCount == 0) {
+      $('#start').text('Start!');
       processFirstCard(this);
     }
 
@@ -137,6 +145,22 @@ $(".picture").on("click", function () {
   }
 });
 
+//remove results text from previous game, reset image squares back to blank, remove prior card array
+//reset overall score and ongoing correct matches
+
+function resetBoard() {
+  $("#results").text("");
+  $("#score").text("");
+  $("#result-heading").text("");
+  $("img").attr("src", "images/blankSquare.png");
+  noOfMatches = 0;
+  score = 0;
+  newPlayingBoard = [];
+  time = 0;
+  timer = setInterval(count, 1000);
+}
+
+
 function displayMatchResult(match, first, second) {
   if (match) {
     $("#results").text("Match!");
@@ -146,7 +170,7 @@ function displayMatchResult(match, first, second) {
     $("#score").text(`Your current score is: ${score}`);
     setTimeout(() => {
       flipCardsBack(first, second);
-    }, 500);
+    }, 1000);
   }
 }
 
@@ -158,16 +182,4 @@ function flipCardsBack(first, second) {
   $(id2).attr("src", "images/blankSquare.png");
 }
 
-function setCards() {
-  newPlayingBoard = shuffleArray(BOARDARRAY);
 
-  for (let j = 0; j < newPlayingBoard.length; j++) {
-    newPlayingBoard[j].boardSpot = j;
-  }
-
-  for (let i = 0; i < newPlayingBoard.length; i++) {
-    $("#" + i).on("click", function () {
-      $("#" + i).attr("src", newPlayingBoard[i].src);
-    });
-  }
-}
